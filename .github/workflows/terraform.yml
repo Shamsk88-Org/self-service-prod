@@ -42,7 +42,6 @@ jobs:
          
       - name: Terraform Init
         run: terraform init
-        working-directory: /home/admin2025/actions-runner/_work/terraform2/terraform2/terraform
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
