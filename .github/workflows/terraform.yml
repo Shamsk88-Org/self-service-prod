@@ -42,13 +42,13 @@ jobs:
          
       - name: Terraform Init
         run: terraform init
-        working-directory: /home/runner/work/terraform2/terraform2/terraform
+        working-directory: /home/runner/work/terraform2/terraform
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-        working-directory: /home/runner/work/terraform2/terraform2/terraform
+        working-directory: /home/runner/work/terraform2/terraform
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve tfplan
-        working-directory: /home/runner/work/terraform2/terraform2/terraform
+        working-directory: /home/runner/work/terraform2/terraform
