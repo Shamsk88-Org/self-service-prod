@@ -36,6 +36,14 @@ jobs:
         with:
          terraform_version: 1.11.4
          
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
+
+      - name: Terraform format
+        run: terraform fmt
+        working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
+        
       - name: Terraform Init
         run: terraform init
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
