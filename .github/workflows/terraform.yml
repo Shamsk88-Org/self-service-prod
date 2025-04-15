@@ -47,6 +47,9 @@ jobs:
       - name: Terraform format
         run: terraform fmt
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
+
+      - name: Force Unlock Terraform State
+        run: terraform force-unlock 89cd9753-9f84-196e-52c2-52d33cb560d4  
         
       - name: Terraform Plan
         run: terraform plan -out=tfplan
