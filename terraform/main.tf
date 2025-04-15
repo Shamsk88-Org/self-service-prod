@@ -1,9 +1,9 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = var.resource_group_name
-    storage_account_name = var.storage_account_name
-    container_name       = var.container_name
-    key                  = var.key
+    resource_group_name  = "rg-dev-app-001"
+    storage_account_name = "proddevops2025"
+    container_name       = "production"
+    key                  = "prodtfstate.tfstate"
     tenant_id            = var.tenant_id
     subscription_id      = var.subscription_id
   }
