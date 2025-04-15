@@ -28,8 +28,10 @@ description = "The value of the Client ID"
 
 variable "resource_name" {
 description = "The name of the resource"
+type        = string
 }
 
 variable "location" {
 description = "Resource Location"
+type        = string
 }
