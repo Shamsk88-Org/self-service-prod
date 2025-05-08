@@ -32,7 +32,7 @@ jobs:
         run: echo $GITHUB_WORKSPACE
           
       - name: OpenTofu Init
-        run: tofu init
+        run: tofu init -var "subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" -var "tenant_id=${{ secrets.AZURE_TENANT_ID }}"
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
         
       # - name: Terraform Validate
@@ -44,12 +44,12 @@ jobs:
       #   working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
       
       - name: OpenTofu Plan
-        run: tofu plan -out=tfplan
+        run: tofu plan -out=tfplan -var "subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" -var "tenant_id=${{ secrets.AZURE_TENANT_ID }}"
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
 
 
       - name: OpenTofu Apply
         if: github.ref == 'refs/heads/main'
-        run: tofu apply -auto-approve tfplan
+        run: tofu apply -auto-approve tfplan -var "subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" -var "tenant_id=${{ secrets.AZURE_TENANT_ID }}"
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
    
