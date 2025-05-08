@@ -31,30 +31,25 @@ jobs:
       - name: Print GITHUB_WORKSPACE
         run: echo $GITHUB_WORKSPACE
           
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-         terraform_version: 1.11.4
-
-      - name: Terraform Init
-        run: terraform init
+      - name: OpenTofu Init
+        run: tofu init
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
         
-      - name: Terraform Validate
-        run: terraform validate
-        working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
+      # - name: Terraform Validate
+      #   run: terraform validate
+      #   working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
 
-      - name: Terraform format
-        run: terraform fmt
-        working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
+      # - name: Terraform format
+      #   run: terraform fmt
+      #   working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
       
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan
+      - name: OpenTofu Plan
+        run: tofu plan -out=tfplan
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
 
 
-      - name: Terraform Apply
+      - name: OpenTofu Apply
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve tfplan
+        run: tofu apply -auto-approve tfplan
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
    
