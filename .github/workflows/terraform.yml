@@ -32,7 +32,7 @@ jobs:
         run: echo $GITHUB_WORKSPACE
           
       - name: OpenTofu Init
-        run: terraform init
+        run: tofu init
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
         
       # - name: Terraform Validate
@@ -44,12 +44,12 @@ jobs:
       #   working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
       
       - name: OpenTofu Plan
-        run: terraform plan -out=tfplan
+        run: tofu plan -out=tfplan
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
 
 
       - name: OpenTofu Apply
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve tfplan
+        run: tofu apply -auto-approve tfplan
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
    
