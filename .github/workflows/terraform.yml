@@ -30,9 +30,21 @@ jobs:
 
       - name: Print GITHUB_WORKSPACE
         run: echo $GITHUB_WORKSPACE
+      - name: Generate backend configuration
+        run: |
+         cat > /home/runner/work/terraform1/terraform1/terraform/backend.tf <<EOF
+         terraform {
+           backend "azurerm" {
+              resource_group_name = "${{ secrets.AZURE_RESOURCE_GROUP }}"
+              storage_account_name = "${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}"
+              container_name = "${{ secrets.AZURE_CONTAINER_NAME }}"
+              key = "${{ secrets.AZURE_KEY }}"
+           } 
+         } 
+         EOF
           
-      - name: OpenTofu Init
-        run: tofu init
+      - name: Terraform Init
+        run: terraform init
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
         
       # - name: Terraform Validate
@@ -43,13 +55,13 @@ jobs:
       #   run: terraform fmt
       #   working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
       
-      - name: OpenTofu Plan
-        run: tofu plan -out=tfplan
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
 
 
-      - name: OpenTofu Apply
+      - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
-        run: tofu apply -auto-approve tfplan
+        run: terraform apply -auto-approve tfplan
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
    
