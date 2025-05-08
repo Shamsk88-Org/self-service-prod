@@ -43,10 +43,8 @@ jobs:
          } 
          EOF
           
-      - name: Opentofu Init
-        run: |
-           az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-           tofu init
+      - name: Terraform Init
+        run: terraform init
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
         
       # - name: Terraform Validate
@@ -57,13 +55,13 @@ jobs:
       #   run: terraform fmt
       #   working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
       
-      - name: Opentofu Plan
-        run: tofu plan -out=tfplan
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
 
 
-      - name: Opentofu Apply
+      - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
-        run: tofu apply -auto-approve tfplan
+        run: terraform apply -auto-approve tfplan
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
    
