@@ -6,16 +6,22 @@ variable "subscription_id" {
 description = "The value of the Subscription ID"
 }
 
-variable "client_id" {
-description = "The value of the Client ID"
-}
-
 variable "resource_name" {
-description = "The name of the resource"
-type = string
+description = "The name of the resource name"
 }
 
 variable "location" {
-description = "Resource Location"
-type = string
+description = "ResourceLocation"
+}
+
+variable "storage_account_name" {
+description = "ResourceLocation"
+}
+
+variable "container_name" {
+description = "ResourceLocation"
+}
+
+variable "resource_group_name" {
+description = "The name of the resource group name"
 }
