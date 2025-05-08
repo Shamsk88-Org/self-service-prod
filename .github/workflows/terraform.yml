@@ -32,7 +32,7 @@ jobs:
         run: echo $GITHUB_WORKSPACE
       - name: Generate backend configuration
         run: |
-         cat > /home/runner/_work/self-service-prod/self-service-prod/terraform/backend.tf <<EOF
+         cat > /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform/backend.tf <<EOF
          terraform {
            backend "azurerm" {
               resource_group_name = "${{ secrets.AZURE_RESOURCE_GROUP }}"
