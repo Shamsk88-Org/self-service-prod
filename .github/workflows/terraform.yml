@@ -20,7 +20,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           enable-AzPSSession: true
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Print working directory
         run: pwd
@@ -30,21 +30,9 @@ jobs:
 
       - name: Print GITHUB_WORKSPACE
         run: echo $GITHUB_WORKSPACE
-      - name: Generate backend configuration
-        run: |
-         cat > /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform/backend.tf <<EOF
-         terraform {
-           backend "azurerm" {
-              resource_group_name = "${{ secrets.AZURE_RESOURCE_GROUP }}"
-              storage_account_name = "${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}"
-              container_name = "${{ secrets.AZURE_CONTAINER_NAME }}"
-              key = "${{ secrets.AZURE_KEY }}"
-           } 
-         } 
-         EOF
-          
-      - name: Terraform Init
-        run: terraform init
+         
+      - name: Opentofu Init
+        run: tofu init
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
         
       # - name: Terraform Validate
@@ -55,13 +43,13 @@ jobs:
       #   run: terraform fmt
       #   working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
       
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan
+      - name: Opentofu Plan
+        run: tofu plan -out=tfplan
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
 
 
-      - name: Terraform Apply
+      - name: Opentofu Apply
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve tfplan
+        run: tofu apply -auto-approve tfplan
         working-directory: /home/admin2025/actions-runner/_work/self-service-prod/self-service-prod/terraform
    
